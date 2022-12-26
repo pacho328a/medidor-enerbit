@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "6fa9d2e6-c7b8-4d07-80e4-6e0b247240d2",
+		"name": "EnerBit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8454612"
+	},
+	"item": [
+		{
+			"name": "Get Medidores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/v1/medidor/f68afbc6-5237-41eb-ad5e-87dc8ad8362a",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"medidor",
+						"f68afbc6-5237-41eb-ad5e-87dc8ad8362a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Medidor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/v1/medidor/f68afbc6-5237-41eb-ad5e-87dc8ad8362a",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"medidor",
+						"f68afbc6-5237-41eb-ad5e-87dc8ad8362a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\t\"id\": \"6166f60c-5d31-4320-9ed1-4de9635935d7\",\n\t\t\t\"address\": \"calle 19\",\n\t\t\t\"retirementdate\": \"2022-05-30T17:19:25.905Z\",\n\t\t\t\"lines\": 2,\n\t\t\t\"IsActive\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/v1/medidor",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"medidor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete medidor",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/v1/medidor/bd8c51d3-2ea5-4a34-883b-df9cd18520bf",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"medidor",
+						"bd8c51d3-2ea5-4a34-883b-df9cd18520bf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Medidor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"brand\": \"marcaaa\",\n\t\"address\": \"calle 17\",\n\t\"installationdate\": \"2022-05-30T17:19:25.905Z\",\n\t\"retirementdate\": \"2022-05-30T17:19:25.905Z\",\n\t\"serial\": \"20-fds\",\n\t\"lines\": 1,\n\t\"IsActive\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/v1/medidor",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"medidor"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

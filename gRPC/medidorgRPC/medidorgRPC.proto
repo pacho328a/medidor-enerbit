@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package medidorgRPC;
+
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+option go_package = "/medidorgRPC";
+
+message Medidor {
+    string brand = 1;
+    string address = 2;
+    google.protobuf.Timestamp installationDate = 3 ;
+    google.protobuf.Timestamp retirementDate = 4;
+    string serial = 5;
+    uint64 lines = 6 [(validate.rules).uint64 = {gte: 1, lte: 10}];
+    bool isActive = 7;
+}
+
+message MedidorGet {
+    string brand = 1;
+    string address = 2;
+    string installationdate = 3 ;
+    string retirementdate = 4;
+    string serial = 5;
+    int32 lines = 6;
+    bool isactive = 7;
+}
+
+message MedidorUpdate {
+    string id = 1;
+    string address = 2;
+    google.protobuf.Timestamp retirementDate = 3;
+    int32 lines = 4;
+    bool isActive = 5;
+
+}
+
+message MedidorIsActive{
+    bool isActive = 1;
+}
+
+message MedidorIsActiveResponse{
+    repeated MedidorGet Medidores = 1;
+}
+
+message MedidorRequest {
+    Medidor MedidorEntry = 1;
+}
+
+message MedidorCreateResponse {
+    string id = 1;
+    string result = 2;
+}
+
+message MedidorResponse {
+    string result = 1;
+}
+
+message MedidorUUID{
+    string id = 1;
+}
+
+message MedidorMarca{
+    string marca = 1;
+}
+
+message MedidorSerial{
+    string serial = 1;
+}
+
+service MedidorService {
+    rpc WriteMedidor(MedidorRequest) returns (MedidorCreateResponse) {};
+    rpc GetMedidor(MedidorUUID) returns (MedidorGet) {};
+    rpc UpdateMedidor(MedidorUpdate) returns (MedidorResponse) {};
+    rpc DeleteMedidor(MedidorUUID) returns (MedidorResponse) {};
+    rpc GetMedidorInstalled(MedidorIsActive) returns (MedidorIsActiveResponse) {};
+    rpc RecentInstallationMarca(MedidorMarca) returns (MedidorGet) {};
+    rpc RecentInstallationSerial(MedidorSerial) returns (MedidorGet) {};
+}

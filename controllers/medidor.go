@@ -2,9 +2,7 @@ package controllers
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
-	"time"
 
 	models "medidor_enerbit/models"
 	"medidor_enerbit/utils"
@@ -167,9 +165,6 @@ func GetMedidores(c *gin.Context) {
 	var medidors []models.Medidor
 
 	request_id := c.GetString("x-request-id")
-
-	earliest := c.DefaultQuery("earliest", "0")
-	latest := c.DefaultQuery("latest", fmt.Sprint(time.Now()))
 
 	// Get a connection
 	db, conErr := utils.GetDatabaseConnection()

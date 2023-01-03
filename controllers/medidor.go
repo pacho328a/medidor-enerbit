@@ -4,12 +4,12 @@ import (
 	"errors"
 	"net/http"
 
-	models "medidor_enerbit/models"
-	"medidor_enerbit/utils"
-
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 	"gorm.io/gorm"
+	models "medidor_enerbit/models"
+	redis "medidor_enerbit/stream"
+	"medidor_enerbit/utils"
 )
 
 func CreateMedidor(c *gin.Context) {
@@ -41,6 +41,16 @@ func CreateMedidor(c *gin.Context) {
 
 	result := db.Create(&medidor)
 	if result.Error != nil && result.RowsAffected != 1 {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Error occurred while creating a new medidor",
+		})
+		return
+	}
+
+	client := redis.GetRedis()
+	err := redis.SendStreamMedidor(medidor, client)
+
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Error occurred while creating a new medidor",
 		})

@@ -5,6 +5,11 @@ import (
 	"github.com/spf13/viper"
 )
 
+type ConfGin struct {
+	ADDR string
+	PORT string
+}
+
 func init() {
 	viper.SetConfigFile(".env")
 	viper.AddConfigPath(".")
@@ -25,4 +30,13 @@ func GetEnvVar(name string) string {
 	}
 	value := viper.GetString(name)
 	return value
+}
+
+func SetConfGin() *ConfGin {
+	addr := GetEnvVar("GIN_ADDR")
+	port := GetEnvVar("GIN_PORT")
+
+	gc := ConfGin{addr, port}
+
+	return &gc
 }

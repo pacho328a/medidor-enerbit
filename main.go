@@ -1,11 +1,12 @@
 package main
 
 import (
+	"context"
 	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
-	app "medidor_enerbit/app"
+	"go.uber.org/fx"
+	"medidor_enerbit/app"
 	utils "medidor_enerbit/utils"
 )
 
@@ -16,17 +17,28 @@ func init() {
 }
 
 func main() {
-	// Setup the app
-	app := app.SetupApp()
 
-	// Read ADDR and port
-	addr := utils.GetEnvVar("GIN_ADDR")
-	port := utils.GetEnvVar("GIN_PORT")
+	appx := fx.New(
+		fx.Provide(
+			app.SetupApp,
+			utils.SetConfGin,
+		),
+		fx.Invoke(LifeCycleHook),
+	)
 
-	// HTTP mode
-	log.Info().Msgf("Starting service on http//:%s:%s", addr, port)
-	if err := app.Run(fmt.Sprintf("%s:%s", addr, port)); err != nil {
-		log.Fatal().Err(err).Msg("Error occurred while setting up the server")
-	}
+	appx.Run()
+}
 
+func LifeCycleHook(lc fx.Lifecycle, app *gin.Engine, cg *utils.ConfGin) {
+	lc.Append(
+		fx.Hook{
+			OnStart: func(ctx context.Context) error {
+				log.Info().Msgf("Starting service on http//:%s:%s", cg.ADDR, cg.PORT)
+				go app.Run(fmt.Sprintf("%s:%s", cg.ADDR, cg.PORT))
+				return nil
+			},
+			OnStop: func(ctx context.Context) error {
+				return nil
+			},
+		})
 }

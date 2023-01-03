@@ -7,6 +7,7 @@ import (
 	"log"
 	"medidor_enerbit/gRPC/medidorgRPC"
 	models "medidor_enerbit/models"
+	redis "medidor_enerbit/stream"
 	"medidor_enerbit/utils"
 	"net"
 
@@ -101,6 +102,12 @@ func (a *medidorService) WriteMedidor(ctx context.Context, req *medidorgRPC.Medi
 			return res, conErr
 		}
 
+		client := redis.GetRedis()
+		err := redis.SendStreamMedidor(medidor, client)
+		if err != nil {
+			res := &medidorgRPC.MedidorCreateResponse{Result: "error creating stream"}
+			return res, conErr
+		}
 		res := &medidorgRPC.MedidorCreateResponse{
 			Id:     medidor.ID,
 			Result: "Medidor Created"}

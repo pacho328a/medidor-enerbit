@@ -4,14 +4,23 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-	"github.com/rs/zerolog/log"
-	"gorm.io/gorm"
 	models "medidor_enerbit/models"
 	redis "medidor_enerbit/stream"
 	"medidor_enerbit/utils"
+
+	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog/log"
+	"gorm.io/gorm"
 )
 
+// PostMedidor	 godoc
+// @Summary      Create a new medidor
+// @Description  Takes a Medidor JSON and store in DB postgres.
+// @Tags         Medidor
+// @Produce      json
+// @Param        Medidor  body      models.MedidorSwCreate  true  "Medidor JSON"
+// @Success      200   {object}  models.MedidorResponse
+// @Router       /medidor [post]
 func CreateMedidor(c *gin.Context) {
 	var medidor models.Medidor
 
@@ -63,6 +72,14 @@ func CreateMedidor(c *gin.Context) {
 	})
 }
 
+// UpdateMedidorById		 godoc
+// @Summary      Update single Medidor by id
+// @Description  Updates and returns a single Medidor whose Id value matches the id. New data must be passed in the body.
+// @Tags         Medidor
+// @Produce      json
+// @Param        Medidor  body      models.MedidorSwUpdate  true  "update Medidor by id"
+// @Success      200  {object}  models.MedidorSwUpdateResponse
+// @Router       /medidor [PATCH]
 func UpdateMedidor(c *gin.Context) {
 	var medidor models.Medidor
 
@@ -126,6 +143,14 @@ func UpdateMedidor(c *gin.Context) {
 
 }
 
+// GetMedidorById		 godoc
+// @Summary      Get single Medidor by Id
+// @Description  Returns the Medidor whose Id value matches the Id.
+// @Tags         Medidor
+// @Produce      json
+// @Param        id  path      string  true  "search Medidor by Id"
+// @Success      200  {object}  models.Medidor
+// @Router       /medidor/{id} [get]
 func GetMedidor(c *gin.Context) {
 	var medidorId models.MedidorID
 
@@ -171,6 +196,13 @@ func GetMedidor(c *gin.Context) {
 	})
 }
 
+// GetMedidores	 godoc
+// @Summary      Get Medidores array
+// @Description  Responds with the list of all Medidores as JSON.
+// @Tags         Medidores
+// @Produce      json
+// @Success      200  {array}  models.Medidor
+// @Router       /medidores [get]
 func GetMedidores(c *gin.Context) {
 	var medidors []models.Medidor
 
@@ -196,6 +228,14 @@ func GetMedidores(c *gin.Context) {
 	})
 }
 
+// DeleteMedidorById		 godoc
+// @Summary      Remove single Medidor by id
+// @Description  Delete a single entry from the database based on id.
+// @Tags         Medidor
+// @Produce      json
+// @Param        id  path      string  true  "delete Medidor by id"
+// @Success      204
+// @Router       /medidor/{id} [delete]
 func DeleteMedidor(c *gin.Context) {
 	var medidorId models.MedidorID
 

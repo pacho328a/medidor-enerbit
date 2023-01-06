@@ -1,12 +1,13 @@
 package app
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/rs/zerolog/log"
 	grpcs "medidor_enerbit/gRPC"
 	middlewares "medidor_enerbit/middlewares"
 	routers "medidor_enerbit/routers"
 	"medidor_enerbit/utils"
+
+	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog/log"
 )
 
 // Function to setup the app object

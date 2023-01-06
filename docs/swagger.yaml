@@ -1,0 +1,197 @@
+basePath: /v1
+definitions:
+  models.Medidor:
+    properties:
+      address:
+        type: string
+      brand:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: string
+      installationdate:
+        type: string
+      isactive:
+        type: boolean
+      lines:
+        type: integer
+      retirementdate:
+        type: string
+      serial:
+        type: string
+    required:
+    - address
+    - lines
+    type: object
+  models.MedidorResponse:
+    properties:
+      Id:
+        example: 6cd9f3c8-7bc8-40e7-8a4b-b575e63f0...
+        type: string
+      Message:
+        example: Medidor ...
+        type: string
+    type: object
+  models.MedidorSwCreate:
+    properties:
+      address:
+        example: Calle-street x
+        type: string
+      brand:
+        example: Marca x
+        type: string
+      installationdate:
+        example: "2022-05-25T00:53:16.535668Z"
+        type: string
+      isactive:
+        type: boolean
+      lines:
+        description: |-
+          min: 1
+          example: 1
+        type: integer
+      retirementdate:
+        example: "2022-05-25T00:53:16.535668Z"
+        type: string
+      serial:
+        example: Serial x
+        type: string
+    required:
+    - lines
+    type: object
+  models.MedidorSwUpdate:
+    properties:
+      address:
+        example: Calle-street x
+        type: string
+      id:
+        example: 6cd9f3c8-7bc8-40e7-8a4b-b575e63f0...
+        type: string
+      isactive:
+        type: boolean
+      lines:
+        description: |-
+          min: 1
+          example: 1
+        type: integer
+      retirementdate:
+        example: "2022-05-25T00:53:16.535668Z"
+        type: string
+    required:
+    - lines
+    type: object
+  models.MedidorSwUpdateResponse:
+    properties:
+      Message:
+        example: Medidor ...
+        type: string
+      result:
+        $ref: '#/definitions/models.Medidor'
+    type: object
+host: localhost:5000
+info:
+  contact:
+    email: pacho328@gmail.com
+    name: Francisco Anacona
+    url: http://artemisa.unicauca.edu.co/~javieranacona/index.html
+  description: A medidor management service API in Go using GORM.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Medidor Service
+  version: "1.0"
+paths:
+  /medidor:
+    patch:
+      description: Updates and returns a single Medidor whose Id value matches the
+        id. New data must be passed in the body.
+      parameters:
+      - description: update Medidor by id
+        in: body
+        name: Medidor
+        required: true
+        schema:
+          $ref: '#/definitions/models.MedidorSwUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MedidorSwUpdateResponse'
+      summary: Update single Medidor by id
+      tags:
+      - Medidor
+    post:
+      description: Takes a Medidor JSON and store in DB postgres.
+      parameters:
+      - description: Medidor JSON
+        in: body
+        name: Medidor
+        required: true
+        schema:
+          $ref: '#/definitions/models.MedidorSwCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MedidorResponse'
+      summary: Create a new medidor
+      tags:
+      - Medidor
+  /medidor/{id}:
+    delete:
+      description: Delete a single entry from the database based on id.
+      parameters:
+      - description: delete Medidor by id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Remove single Medidor by id
+      tags:
+      - Medidor
+    get:
+      description: Returns the Medidor whose Id value matches the Id.
+      parameters:
+      - description: search Medidor by Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Medidor'
+      summary: Get single Medidor by Id
+      tags:
+      - Medidor
+  /medidores:
+    get:
+      description: Responds with the list of all Medidores as JSON.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Medidor'
+            type: array
+      summary: Get Medidores array
+      tags:
+      - Medidores
+swagger: "2.0"

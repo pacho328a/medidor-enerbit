@@ -51,7 +51,9 @@ Acá se encuentran los diferentes puntos de acceso a la API
 
 #### Ejemplo/Example
 Para crear un Medidor damos click en la opción POST:
+
 ![enter image description here](https://i.ibb.co/JtR56r7/create-Medidor.png)
+
 **advertencia**
 - El valor de lines debe ser mayor a 0 
 
@@ -63,9 +65,13 @@ Para crear un Medidor damos click en la opción POST:
 Para ingresar al Adminer Cli  se debe ingresar a la siguiente ruta en el navegador:
 **http://localhost:8080**
 **Credenciales:**
+
 ![enter image description here](https://i.ibb.co/kxqvZZp/cli-db.png)
+
 **contraseña:** example
+
 Acá podemos ver los datos que están almacenados en la base de datos.
+
 ![enter image description here](https://i.ibb.co/SvzFFT5/CreateDb.png)
 
 ## redis-commander

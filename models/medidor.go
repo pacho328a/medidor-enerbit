@@ -20,7 +20,6 @@ type Medidor struct {
 	Lines            uint64    `json:"lines" binding:"required"`
 	IsActive         bool      `json:"isactive"`
 	CreatedAt        time.Time `gorm:"autoCreateTime:milli" json:"created_at"`
-	DeletedAt        time.Time `json:"deleted_at"`
 }
 
 type MedidorSwCreate struct {
